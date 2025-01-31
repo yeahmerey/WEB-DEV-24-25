@@ -245,6 +245,9 @@ form {
     padding-bottom:10px;
     font-weight: 4.7;
 }
+.footer-help a:hover{
+    text-decoration: underline;
+}
 #copyright{
     color: #737373; 
     padding-top:10px;
