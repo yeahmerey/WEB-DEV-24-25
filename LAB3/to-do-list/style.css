@@ -1,0 +1,80 @@
+body {
+    font-family: sans-serif;
+}
+.menu {
+    background-color: black;
+    position: absolute;
+    left: 0px; 
+    top: 0px;
+    height: 100px;
+    width: 100%;
+}
+.menu p {
+    padding: 30px 100px 0px 60px;
+    color: white;
+    font-size: 16px;
+}
+.menu #m{
+    padding-left: auto;
+    padding-bottom: 30px;
+    font-size: 16px;
+    color : white ; 
+
+}
+
+.input-group {
+    margin-top: 200px;
+    margin-left: 300px;
+}
+.input-group input {
+    border-radius: 10px;
+    height: 30px;
+    width: 700px;
+}
+.input-group p {
+    font-size: 30px;
+}
+.input-group button {
+    height: 36px;
+    width: 70px;
+    margin-left: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(71, 71, 237);
+}
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 70px;
+}
+ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+}
+ul li.checked span {
+    text-decoration: line-through;
+    color: #555;
+}
+.delete-box {
+    margin-left: auto;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+#footer p3 {
+    color : white; 
+}
+#footer{
+    position: fixed;
+    text-align: center;
+    padding-top: 20px;
+    left: 0px;
+    bottom: 0px;
+    height: 100px;
+    width: 100%;
+    background-color: black ;
+}
