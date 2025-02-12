@@ -2,13 +2,13 @@ const inputBox = document.getElementById('new-task');
 const taskList = document.getElementById('task-list');
 
 function addTask() {
-    if (inputBox.value === '') {
+    if (inputBox.value.trim() === '') {
         alert("Please firstly write"); 
     } else {
         let li = document.createElement("li");
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.classList.add("task-checkbox");
+        checkbox.classList.add();
         checkbox.addEventListener("change", function() {
             li.classList.toggle("checked", checkbox.checked);
         });
