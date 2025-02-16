@@ -10,4 +10,4 @@ bootstrapApplication(AppComponent,
       provideRouter(routeConfig)
     ]
   }
-).catch((err: any) => console.error(err));
+).catch(err => console.error(err));
