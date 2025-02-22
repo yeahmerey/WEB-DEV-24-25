@@ -1,9 +1,9 @@
 <div class="search-part">
     <input type="text" placeholder="Search...">
-    <button type="button">
+    <button id="search-b" type="button">
         Search
     </button>
 </div>
 <section class="results">
-    <app-product *ngFor="let p of productsList" [productInfo] = "p"></app-product>
+    <app-products *ngFor="let p of productList" [productInfo] = "p"></app-products>
 </section>

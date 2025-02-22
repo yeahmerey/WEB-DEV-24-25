@@ -1,17 +1,16 @@
 import { Component , Input } from '@angular/core';
-import { ProductInfo } from '../../product-info';
+import { ProductInfo } from '../../model/product-info';
 import { CommonModule } from '@angular/common';
-
+import { RouterModule } from '@angular/router';
 @Component({
-  selector: 'app-product',
-  imports: [CommonModule],
-  templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  selector: 'app-products',
+  imports: [CommonModule ,RouterModule],
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.css'
 })
-export class ProductComponent {
+export class ProductsComponent {
   @Input() productInfo! : ProductInfo ; 
-  
-  
+
   getWhatsAppLink(): string {
     return `https://wa.me/?text=${encodeURIComponent(this.productInfo.name + ' - ' + this.productInfo.link)}`;
   }

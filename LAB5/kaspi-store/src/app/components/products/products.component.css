@@ -19,7 +19,9 @@
     padding-top: 10px;
     padding-left: 20px;
 }
-
+.details{
+    padding-left: 20px;
+}
 .listing{
     width: 450px;
     height: 650px;

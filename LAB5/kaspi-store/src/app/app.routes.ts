@@ -1,17 +1,22 @@
 import { Routes } from '@angular/router';
-
+import { DetailsComponent } from './components/details/details.component';
 export const routes: Routes = [
     {
         path : '', 
-        loadComponent : () => {
-            return import('./home/home.component').then((m) => m.HomeComponent)
-        }, 
-    },
+        pathMatch : 'full', 
+        loadComponent: () => {
+            return import('./components/searching/searching.component').then((m)=>m.SearchingComponent)
+        },
+    }, 
     {
-        path : 'category/laptops',
-        loadComponent : () => {
-            return import('./category/laptops/laptops.component').then((m)=>m.LaptopsComponent)
-        }
+        path :'cart', 
+        loadComponent: () => {
+            return import('./components/carts/carts.component').then((m)=>m.CartsComponent)
+        },
+    }, 
+    {
+        path : 'details/:id', 
+        component : DetailsComponent , 
+        title : 'Details Page'
     }
 ];
-
