@@ -240,4 +240,12 @@ export class ProductService {
   private calculateTotalLikes(): number{
     return this.productList.filter(product => product.like).length
   }
+
+  deleteProduct(productId : number) : void{
+    const product = this.productList.find(p => p.id === productId); 
+    if(product) {
+      product.available = false ; 
+      this.updateLikes(); 
+    }
+  }
 }
