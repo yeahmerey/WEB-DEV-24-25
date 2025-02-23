@@ -6,4 +6,6 @@ export interface ProductInfo {
     rating : number, 
     link: string, 
     category : string, 
+    like : boolean , 
+    available : boolean  
 }

@@ -46,3 +46,14 @@ input {
         grid-template-columns: 1fr;
     }    
   }
+  .categories button{
+    position: relative;
+    left : 25px; 
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: white;
+    border-color: rgb(58, 18, 203);
+  }

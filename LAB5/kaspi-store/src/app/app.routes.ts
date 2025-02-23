@@ -8,12 +8,12 @@ export const routes: Routes = [
             return import('./components/searching/searching.component').then((m)=>m.SearchingComponent)
         },
     }, 
-    {
-        path :'cart', 
-        loadComponent: () => {
-            return import('./components/carts/carts.component').then((m)=>m.CartsComponent)
-        },
-    }, 
+    // {
+    //     path :'cart', 
+    //     loadComponent: () => {
+    //         return import('./components/carts/carts.component').then((m)=>m.CartsComponent)
+    //     },
+    // }, 
     {
         path : 'details/:id', 
         component : DetailsComponent , 

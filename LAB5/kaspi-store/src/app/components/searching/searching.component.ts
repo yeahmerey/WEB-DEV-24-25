@@ -10,10 +10,21 @@ import { ProductService } from '../../services/product.service';
   styleUrl: './searching.component.css'
 })
 export class SearchingComponent {
+  
   productList : ProductInfo[] = []; 
   productService : ProductService = inject(ProductService); 
-
+  filteredList : ProductInfo[] = []; 
+  categories: string[] = []; 
+  selectedCategory: string =''; 
+  
   constructor() {
     this.productList = this.productService.getAllProducts(); 
+    this.filteredList = [...this.productList]
+    this.categories = [...new Set(this.productList.map(p => p.category))]; 
+  }
+
+  filterByCategory(category : string){
+    this.selectedCategory = category ;
+    this.filteredList = category ? this.productList.filter(p => p.category === category): [...this.productList]; 
   }
 }

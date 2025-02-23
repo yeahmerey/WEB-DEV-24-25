@@ -3,6 +3,7 @@ import { Component , inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductInfo } from '../../model/product-info';
 import { ProductService } from '../../services/product.service';
+import { ProductsComponent } from '../products/products.component';
 @Component({
   selector: 'app-details',
   imports: [CommonModule],
