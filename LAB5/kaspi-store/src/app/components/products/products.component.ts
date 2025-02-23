@@ -8,7 +8,9 @@ import { RouterModule } from '@angular/router';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
+
 export class ProductsComponent {
+  protected productList : ProductInfo[] = []; 
   @Input() productInfo! : ProductInfo ; 
 
   getWhatsAppLink(): string {

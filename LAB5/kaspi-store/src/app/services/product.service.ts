@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductInfo } from '../model/product-info';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -220,7 +221,8 @@ export class ProductService {
       available : true ,
     },
   ]; 
-
+  private totalLikesSubject = new BehaviorSubject<number>(this.calculateTotalLikes());
+  totalLikes$ = this.totalLikesSubject.asObservable();
   constructor() { }
 
   getAllProducts() : ProductInfo[] {
@@ -229,5 +231,13 @@ export class ProductService {
   getProductsById(id : Number): ProductInfo | undefined {
     return this.productList.find(product => product.id === id ); 
   }
-
+  getTotalLikes() : number { 
+    return this.productList.filter(product => product.like).length; 
+  }
+  updateLikes():void{
+    this.totalLikesSubject.next(this.calculateTotalLikes())
+  }
+  private calculateTotalLikes(): number{
+    return this.productList.filter(product => product.like).length
+  }
 }

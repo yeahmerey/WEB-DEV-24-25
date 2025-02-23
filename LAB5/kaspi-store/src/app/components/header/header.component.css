@@ -48,3 +48,20 @@ input {
   .search-part{
     margin-left: 35px;
   }
+  div{
+    width: 200px;
+    height: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(70, 129, 211);
+    color : white; 
+    text-align: center;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  hr {
+    margin-top: -30px;
+    margin-bottom: 30px;
+  }
