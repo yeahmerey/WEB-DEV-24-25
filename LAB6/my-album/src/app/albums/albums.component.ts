@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ALBUMS } from '../../fake-db';
 import { Album } from '../../models';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -19,9 +18,22 @@ export class AlbumsComponent implements OnInit{
   }
   ngOnInit(){
     this.loaded = false ; 
+    this.loadAlbums(); 
+  }
+
+  loadAlbums(){
     this.albumsService.getAlbums().subscribe((albums : Album[]) =>{
       this.albums = albums ;
       this.loaded = true; 
+    })
+  }
+  deleteAlbum(id : number , event : Event){
+    event.stopPropagation(); 
+
+    this.albumsService.deleteAlbum(id).subscribe({
+      next : () => {
+        this.albums = this.albums.filter(album => album.id !== id); 
+      }
     })
   }
 }

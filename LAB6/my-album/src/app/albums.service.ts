@@ -7,13 +7,18 @@ import { Album } from '../models';
   providedIn: 'root'
 })
 export class AlbumsService {
-
+  
+  private apiURL = 'https://jsonplaceholder.typicode.com/albums'; 
+  
   constructor(private client: HttpClient) { }
   
   getAlbums(): Observable<Album[]> {
-    return this.client.get<Album[]>('https://jsonplaceholder.typicode.com/albums') 
+    return this.client.get<Album[]>(this.apiURL) 
   }
   getAlbum(id : number): Observable<Album>{
-    return this.client.get<Album>(`https://jsonplaceholder.typicode.com/albums/${id}`);
+    return this.client.get<Album>(`${this.apiURL}/${id}`);
+  }
+  deleteAlbum(id : number) : Observable<any>{
+    return this.client.delete(`${this.apiURL}/${id}`)
   }
 } 
