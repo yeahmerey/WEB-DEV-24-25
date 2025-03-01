@@ -4,6 +4,7 @@ import { AlbumsComponent } from './albums/albums.component';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { AlbumPhotosComponent } from './album-photos/album-photos.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,6 @@ export const routes: Routes = [
     }, 
     {
         path:'albums/:id', component : AlbumDetailsComponent , title : 'Album detail page'
-    }
+    },
 ];
  

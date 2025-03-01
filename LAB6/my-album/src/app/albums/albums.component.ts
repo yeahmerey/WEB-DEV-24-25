@@ -3,9 +3,10 @@ import { Album } from '../../models';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AlbumsService } from '../albums.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-albums',
-  imports: [CommonModule , RouterModule],
+  imports: [CommonModule , RouterModule, FormsModule],
   templateUrl: './albums.component.html',
   styleUrl: './albums.component.css'
 })

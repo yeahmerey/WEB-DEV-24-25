@@ -18,6 +18,9 @@ export class AlbumsService {
   getAlbum(id : number): Observable<Album>{
     return this.client.get<Album>(`${this.apiURL}/${id}`);
   }
+  updateAlbum(album : Album) : Observable<Album>{
+    return this.client.put<Album>(`${this.apiURL}/${album.id}`, album); 
+  }
   deleteAlbum(id : number) : Observable<any>{
     return this.client.delete(`${this.apiURL}/${id}`)
   }
