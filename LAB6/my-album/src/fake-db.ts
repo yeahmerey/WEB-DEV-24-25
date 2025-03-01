@@ -6,8 +6,7 @@ for( let i : number = 1 ; i <= 10 ; i ++){
     ALBUMS.push(
         {
             id : i , 
-            title : `Title : Album ${i}`, 
-            body : `Body part of album ${i}`, 
+            title : `Title : Album ${i}`,  
         }
     )
 }
