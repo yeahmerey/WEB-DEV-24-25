@@ -13,4 +13,7 @@ export class AlbumsService {
   getAlbums(): Observable<Album[]> {
     return this.client.get<Album[]>('https://jsonplaceholder.typicode.com/albums') 
   }
+  getAlbum(id : number): Observable<Album>{
+    return this.client.get<Album>(`https://jsonplaceholder.typicode.com/albums/${id}`);
+  }
 } 

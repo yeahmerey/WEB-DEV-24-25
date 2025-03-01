@@ -1,4 +1,12 @@
 <a [routerLink]="['/home']">Return</a>
-<h3>Post #{{album.id}}</h3>
-<h4>{{album.title}}</h4>
-<p>{{album.body}}</p>
+<div *ngIf="loaded; else loadingBlock">
+    <h3>Post #{{album.id}}</h3>
+    <h4>{{album.title}}</h4>
+    <p>{{album.body}}</p>
+</div>
+<br>
+<div>
+    <ng-template #loadingBlock>
+        Post detail is loading...
+    </ng-template>
+</div>

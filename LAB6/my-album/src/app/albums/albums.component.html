@@ -1,5 +1,10 @@
-<ul>
+<ul *ngIf="loaded; else loadingBlock">
     <li *ngFor = "let album of albums">
        <a [routerLink]="['/albums', album.id]">{{album.id}} - {{album.title}}</a>
     </li>
 </ul>
+<div>
+    <ng-template #loadingBlock>
+        Albums are loading...
+    </ng-template>
+</div>
