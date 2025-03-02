@@ -11,6 +11,9 @@ export const routes: Routes = [
         path:'home' , component: HomeComponent, title : 'Home Page'
     },
     {
+        path: '' , component : HomeComponent , title : 'Home Page'
+    },
+    {
         path:'about' , component : AboutComponent , title : 'About Us'
     },
     {
@@ -19,5 +22,8 @@ export const routes: Routes = [
     {
         path:'albums/:id', component : AlbumDetailsComponent , title : 'Album detail page'
     },
+    {
+        path:'albums/:id/photos', component :AlbumPhotosComponent , title : 'Album photos'
+    }
 ];
  
