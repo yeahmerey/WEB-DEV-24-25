@@ -9,7 +9,6 @@
         <div class="photo-card" *ngFor="let photo of photos">
           <img [src]="photo.thumbnailUrl" [alt]="photo.title">
           <h4>{{photo.title}}</h4>
-          <img [src]="photo.url" [alt]="photo.title">
           <a [href]="photo.url" target="_blank">Открыть полный размер</a>
         </div>
       </div>
