@@ -17,6 +17,7 @@ export class AlbumDetailsComponent implements OnInit {
   editTitle : string = ''; 
   isEditing : boolean = false; 
   //album !: Album | undefined ; 
+  
   constructor(private route : ActivatedRoute,private albumsService: AlbumsService){
     this.loaded = false ; 
   }
