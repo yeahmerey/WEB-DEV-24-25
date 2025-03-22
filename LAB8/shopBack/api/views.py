@@ -3,6 +3,8 @@
 from datetime import datetime , timedelta
 from django.http import HttpResponse , HttpRequest , JsonResponse
 
+from api.models import Product
+
 def hello_world(request) : 
     #request is instance oof HttpRequest
 
@@ -30,3 +32,10 @@ def test_json(request):
         }
     }
     return JsonResponse(data)
+
+def products_list(request):
+
+    products = Product.objects.all()
+    products_json = [p.to_json() for p in products]
+
+    return JsonResponse(products_json , safe=False)
