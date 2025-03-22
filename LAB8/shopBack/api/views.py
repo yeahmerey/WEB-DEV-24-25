@@ -1,7 +1,7 @@
 # Create your views here.
 
 from datetime import datetime , timedelta
-from django.http import HttpResponse , HttpRequest
+from django.http import HttpResponse , HttpRequest , JsonResponse
 
 def hello_world(request) : 
     #request is instance oof HttpRequest
@@ -18,3 +18,15 @@ def hour_ahead(request , hour):
     new_time = cur_time + timedelta(hours =int(hour))
     #return HttpResponse(f"<h1>{cur_time}</h1>")
     return HttpResponse (f"<h1>Cur: {cur_time}</h1><h1>New : {new_time}</h1>")
+
+def test_json(request): 
+    data = {
+        "message" : "Hello World", 
+        "numbers" : [1, 2, 3, 4, 5],
+        "student" : {
+            "id": "23B030000", 
+            "name": "Merey",
+            "gpa" : 3.27 
+        }
+    }
+    return JsonResponse(data)
