@@ -1,1 +1,2 @@
-def front3(str): return str[:3] * 3
+def front3(str): 
+    return str[:3] * 3
