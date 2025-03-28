@@ -3,14 +3,18 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from api.models import Company , Vacancy
-
+from api.serializers import CompanySerializer
 #read
 @csrf_exempt
 def companies_list(request):
     if request.method == 'GET':
         companies = Company.objects.all()
-        companies_json = [c.to_json() for c in companies]
-        return JsonResponse(companies_json , safe = False)
+
+        serializer = CompanySerializer(companies , many = True)##many , expects only one obj , if many = false , default is false
+
+        #companies_json = [c.to_json() for c in companies]
+        
+        return JsonResponse(serializer.data , safe = False)
     elif request.method == 'POST':
         data = json.loads(request.body)
         try : 
@@ -30,7 +34,8 @@ def company_detail(request, company_id=None):
         return JsonResponse({'error' : str(e)} , status=404)
     
     if request.method == 'GET' : 
-        return JsonResponse(company.to_json() , status=200)
+        serializer = CompanySerializer(company)
+        return JsonResponse(serializer.data , status=200)
     elif request.method == "PUT" : 
         new_data = json.loads(request.body)
         company.name = new_data['name']
