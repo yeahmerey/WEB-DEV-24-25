@@ -12,14 +12,20 @@ def companies_list(request):
 
         serializer = CompanySerializer2(companies , many = True)##many , expects only one obj , if many = false , default is false
 
+        #companies_json = [c.to_json() for c in companies]
+        
         return JsonResponse(serializer.data , safe = False)
     elif request.method == 'POST':
         data = json.loads(request.body)
-        serializer = CompanySerializer2(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data , status = 201)
-        return JsonResponse(serializer.errors, status=400)
+        try : 
+            company = Company.objects.create(
+                name=data['name'], 
+                description=data['description'],
+            )
+        except Exception as e : 
+            return JsonResponse({'error' : str(e)})
+
+        return JsonResponse(company.to_json(), status=201)
 @csrf_exempt
 def company_detail(request, company_id=None):
     try : 
@@ -32,13 +38,12 @@ def company_detail(request, company_id=None):
         return JsonResponse(serializer.data , status=200)
     elif request.method == "PUT" : 
         new_data = json.loads(request.body)
-        
-        serializer = CompanySerializer2(instance=company, data=new_data)#in put we need 
-
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data , status = 201)
-        return JsonResponse(serializer.errors, status=400)   
+        company.name = new_data['name']
+        company.description = new_data['description']
+        company.city = new_data['city']
+        company.address = new_data['address']
+        company.save()
+        return JsonResponse(company.to_json())
     elif request.method == 'DELETE' : 
         company.delete()
         return JsonResponse({'message' : 'Product was deleted'})
