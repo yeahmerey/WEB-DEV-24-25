@@ -1,4 +1,6 @@
-from rest_framework import serializers 
+from rest_framework import serializers
+
+from api.models import Company 
 
 class CompanySerializer(serializers.Serializer) : 
     id = serializers.IntegerField()
@@ -7,3 +9,8 @@ class CompanySerializer(serializers.Serializer) :
     city = serializers.CharField()
     address = serializers.CharField()
 
+class CompanySerializer2(serializers.ModelSerializer):
+    class Meta : 
+        model = Company 
+        fields = ('id','name','description','city','address')
+        

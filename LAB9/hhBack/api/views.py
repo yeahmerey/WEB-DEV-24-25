@@ -3,14 +3,14 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from api.models import Company , Vacancy
-from api.serializers import CompanySerializer
+from api.serializers import CompanySerializer, CompanySerializer2
 #read
 @csrf_exempt
 def companies_list(request):
     if request.method == 'GET':
         companies = Company.objects.all()
 
-        serializer = CompanySerializer(companies , many = True)##many , expects only one obj , if many = false , default is false
+        serializer = CompanySerializer2(companies , many = True)##many , expects only one obj , if many = false , default is false
 
         #companies_json = [c.to_json() for c in companies]
         
