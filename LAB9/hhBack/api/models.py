@@ -16,9 +16,9 @@ class Company(models.Model) :
         }   
 
     def __str__(self) : 
-        return self.name 
+        return f"{self.id} - {self.name} - {self.address}"   
 
-class Vacancy(models.Model) : 
+class Vacancy(models.Model) :
     name = models.CharField(max_length=100) 
     description = models.TextField()
     salary = models.FloatField()
@@ -35,5 +35,5 @@ class Vacancy(models.Model) :
         }
     
     def __str__(self) : 
-        return f"{self.name}-{self.salary}"
+        return f"{self.name} - {self.company.name} - {self.salary}"
     
