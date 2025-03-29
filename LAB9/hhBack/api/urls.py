@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from api import views , views_without_serializers 
+from api import views_with_serializers , views_without_serializers 
 urlpatterns = [
    path('companies/' , views_without_serializers.companies_list), 
    path('companies/<int:company_id>/', views_without_serializers.company_detail),

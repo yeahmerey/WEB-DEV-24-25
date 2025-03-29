@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from api.models import Company , Vacancy
+from api.serializers import CompanyModelSerializer , VacancyModelSerializer
 
 #-------------Company requests---------
 #read
@@ -10,22 +11,21 @@ def companies_list(request):
     #GET request list of all companies or SELECT * method
     if request.method == 'GET':
         companies = Company.objects.all()
-        companies_json = [c.to_json() for c in companies]
-        return JsonResponse(companies_json , safe=False)    
-    #POST request company to list of company or INSERT INTO method
+        serializer = CompanyModelSerializer(companies , many = True)
+        #if many = false , expects only one obj
+        return JsonResponse(serializer.data , safe = False)        
+        
+        #POST request company to list of company or INSERT INTO method
     elif request.method == 'POST':
         data = json.loads(request.body)
-        try: 
-            company = Company.objects.create(
-                name = data['name'], 
-                description = data['description'],
-                city = data['city'],
-                address = data['address'],
-            )
-        except Exception as e :
-            return JsonResponse({'error' : str(e)})    
-        return JsonResponse(company.to_json() , status=201)
-    
+        serializer = CompanyModelSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data , status=201)
+        return JsonResponse(serializer.errors , status=400)    
+
+
 @csrf_exempt
 def company_detail(request, company_id=None):
     try :  
@@ -34,16 +34,18 @@ def company_detail(request, company_id=None):
         return JsonResponse({'error' : str(e)} , status=404)
     #GET request to company's detail or SELECT one obj
     if request.method == 'GET' : 
-        return JsonResponse(company.to_json(), status=200)
+        serializer = CompanyModelSerializer(company)
+        return JsonResponse(serializer.data)
+    
     #PUT request to company , replace data of one company
     elif request.method == "PUT" : 
         new_data = json.loads(request.body)
-        company.name = new_data['name']
-        company.description = new_data['description']
-        company.city = new_data['city']
-        company.address = new_data['address']
-        company.save()
-        return JsonResponse(company.to_json())
+        serializer = CompanyModelSerializer(instance=company , data=new_data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data , status = 201)
+        return JsonResponse(serializer.errors , status=400)
+    
     #DELETE request of one company    
     elif request.method == 'DELETE' : 
         company.delete()
@@ -55,26 +57,19 @@ def vacancies_list(request):
     #GET request list of all vacancies or SELECT * method
     if request.method == 'GET' : 
         vacancies = Vacancy.objects.all()
-        vacancies_json = [v.to_json() for v in vacancies]
-        return JsonResponse(vacancies_json , safe=False)
+        serializer = VacancyModelSerializer(vacancies, many = True)
+        return JsonResponse(serializer.data , safe=False)
+
     #POST request vacancy to list of vacancies or INSERT INTO method
     elif request.method == 'POST' : 
         data = json.loads(request.body)
-        try : 
-            company = Company.objects.get(name=data['company'])
-        
-            vacancy = Vacancy.objects.create(
-                name = data['name'], 
-                description = data['description'], 
-                salary = data['salary'],
-                company=company, 
-            )
-        except Company.DoesNotExist:
-            return JsonResponse({'error' : 'Company not found'}, status=404)
-        except Exception as e : 
-            return JsonResponse({'error' : str(e)}, status=400)
-        
-        return JsonResponse(vacancy.to_json() , status=201)
+        serializer = VacancyModelSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data , status=201)
+        return JsonResponse(serializer.errors , status=400)
+    
 @csrf_exempt
 def vacancy_details(request, vacancy_id) :
     try :
