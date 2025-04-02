@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from api.models import Company , Vacancy
+from api.models import Company , Vacancy , Application
 
 #-------------Company requests---------
 #read
@@ -61,7 +61,7 @@ def vacancies_list(request):
     elif request.method == 'POST' : 
         data = json.loads(request.body)
         try : 
-            company = Company.objects.get(name=data['company'])
+            company = Company.objects.get(id=data['company'])
         
             vacancy = Vacancy.objects.create(
                 name = data['name'], 
@@ -113,3 +113,35 @@ def company_vacancies(request , company_id=None) :
     company = Company.objects.get(id=company_id)
     vacancies = company.vacancies.all()
     return JsonResponse([v.to_json() for v in vacancies], safe=False)
+
+
+@csrf_exempt 
+def applications_list(request) :
+    if request.method == 'GET' :
+        applications = Application.objects.all()
+        applications_json = [a.to_json() for a in applications]
+        return JsonResponse(applications_json , safe=False) 
+    elif request.method == 'POST' :
+        data = json.loads(request.body)
+        try : 
+            vacancy = Vacancy.objects.get(id=data['vacancy'])
+            application = Application.objects.create(
+                full_name = data['full_name'], 
+                email = data['email'], 
+                vacancy = vacancy,     
+            )
+        except Vacancy.DoesNotExist:
+            return JsonResponse({'error' : 'Vacancy not found'}, status=404)
+        except Exception as e : 
+            return JsonResponse({'error' : str(e)}, status=400)
+        
+        return JsonResponse(vacancy.to_json() , status=201)
+@csrf_exempt
+def application_detail(request , application_id=None):
+    try :
+        application = Application.objects.get(id=application_id)
+    except Vacancy.DoesNotExist as e:     
+        return JsonResponse({'error' : str(e)}, status=404), 
+    if request.method == 'GET':
+        return JsonResponse(application.to_json()) 
+        

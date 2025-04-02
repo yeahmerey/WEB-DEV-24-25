@@ -9,4 +9,6 @@ urlpatterns = [
    path('vacancies/', views_without_serializers.vacancies_list), 
    path('vacancies/<int:vacancy_id>/', views_without_serializers.vacancy_details),
    path('vacancies/top10/' , views_without_serializers.top10_vacancies), 
+   path('applications/', views_without_serializers.applications_list), 
+   path('applications/<int:application_id>', views_without_serializers.application_detail), 
 ]
