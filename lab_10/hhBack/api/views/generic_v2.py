@@ -2,13 +2,14 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt 
 from api.models import Company , Vacancy
-from api.serializers import CompanySerializer , CompanyModelSerializer
+from api.serializers import CompanySerializer , CompanyModelSerializer, VacancyModelSerializer
 
 from rest_framework.decorators import api_view 
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status , generics , mixins
 from rest_framework.views import APIView
+
 #Company requests :
 
 class CompanyListAPIView(generics.ListAPIView):
@@ -19,7 +20,19 @@ class CompanyDetailAPIView(generics.RetrieveUpdateDestroyAPIView) :
     queryset = Company.objects.all()
     serializer_class = CompanyModelSerializer
     lookup_url_kwarg = 'company_id'
-    
+
+class CompanyVacanciesAPIView(APIView):
+    def get_object(self, company_id):
+        try : 
+            return Company.objects.get(id=company_id)
+        except Vacancy.DoesNotExist as e: 
+            return Response({'error' : str(e)},status=status.HTTP_404_NOT_FOUND )
+    def get(self , request , company_id) :
+        company = self.get_object(company_id)
+        vacancies = company.vacancies.all()
+        serializer = VacancyModelSerializer(vacancies , many=True)
+        return Response(serializer.data)
+
 #Vacancy requests : 
 
 @csrf_exempt
